@@ -3,6 +3,8 @@ let app = webApp.create();
 let fs = require('fs');
 let toS = o=>JSON.stringify(o,null,2);
 
+let staticFileHandler = require('./staticFileHandler.js').staticFileHandler;
+
 let logRequest = function(req){
   console.log(`requested to ${req.method} ${req.url}`);
 }
@@ -25,29 +27,6 @@ const getContentType = function(filePath) {
   return contentTypes[fileExtension];
 }
 
-let isStaticFile = function(file){
-  return fs.existsSync(file);
-}
-
-let serveAsStaticFile = function(staticFile,res){
-  let contentType = getContentType(staticFile);
-  res.setHeader('Content-Type',contentType);
-  let content = fs.readFileSync(staticFile);
-  res.write(content);
-  res.end();
-}
-
-let setResourcePath = function(resource){
-  console.log(`requested for ${resource}----------------------`);
-  if(resource == '/') return './public/html/index.html';
-  return './public'+resource;
-}
-
-let fileHandler = function(req,res){
-  let source = setResourcePath(req.url);
-  if(isStaticFile(source)) return serveAsStaticFile(source,res);
-}
-
 let registerUser = function(req,res){
   let user = req.body;
   registeredUsers[user.userId] = user;
@@ -56,7 +35,7 @@ let registerUser = function(req,res){
   res.redirect('html/login.html');
 }
 
-app.use(fileHandler);
+app.use(staticFileHandler);
 app.use(logRequest);
 
 app.post('/registerForm',registerUser);
