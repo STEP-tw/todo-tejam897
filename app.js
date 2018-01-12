@@ -1,12 +1,13 @@
 let webApp = require('./webApp.js');
 let app = webApp.create();
 let fs = require('fs');
+let toS = o=>JSON.stringify(o,null,2);
 
 let logRequest = function(req){
   console.log(`requested to ${req.method} ${req.url}`);
 }
 
-let registeredUsers = {};
+let registeredUsers = require('./registeredUsers.js').users;
 
 const getContentType = function(filePath) {
   let fileExtension = filePath.slice(filePath.lastIndexOf('.'));
@@ -50,16 +51,26 @@ let fileHandler = function(req,res){
 let registerUser = function(req,res){
   let user = req.body;
   registeredUsers[user.userId] = user;
-  console.log(registeredUsers);
-  res.redirect('/login')
+  let users = toS(registeredUsers);
+  fs.writeFileSync('registeredUsers.js',`let users = ${users}\n exports.users = users`);
+  res.redirect('html/login.html');
 }
 
 app.use(fileHandler);
 app.use(logRequest);
 
 app.post('/registerForm',registerUser);
-// app.get('/login',  res.setHeader('Content-type','text/html');
-//   if(req.cookies.logInFailed) res.write('<p>logIn Failed</p>');
-//   res.write('<form method="POST"> <input name="userName"><input name="place"> <input type="submit"></form>');
-//   res.end();)
+app.post('/login',(req,res)=>{
+  let user = registeredUsers[req.body.userId];
+  console.log(registeredUsers,req.body.userId);
+  if(!user) {
+    res.setHeader('Set-Cookie',`logInFailed=true`);
+    res.redirect('html/login.html');
+    return;
+  }
+  let sessionid = new Date().getTime();
+  res.setHeader('Set-Cookie',`sessionid=${sessionid}`);
+  user.sessionid = sessionid;
+  res.redirect('/home');
+});
 module.exports = app;

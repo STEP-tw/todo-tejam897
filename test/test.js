@@ -14,13 +14,5 @@ describe('app',()=>{
       })
     })
   })
-  describe('GET /index.html',()=>{
-    it('gives the index page',()=>{
-      request(app,{method:'GET',url:'/index.html'},res=>{
-        th.status_is_ok(res);
-        th.content_type_is(res,'text/html');
-        th.body_contains(res,'Please log in');
-      })
-    })
-  })
+  describe('GET ')
 });
