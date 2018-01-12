@@ -27,7 +27,7 @@ describe('staticFileHandler',()=>{
     })
   })
   describe('serveAsStaticFile',()=>{
-    let res = {headers:''};
+    let res = {headers:'',finished:false};
     res.setHeader = function(key,val){
       res[key] = val;
     }
@@ -37,11 +37,12 @@ describe('staticFileHandler',()=>{
     res.end = function(){
       res.finished = true;
     }
+    let fs = {};
+    fs.readFileSync=(file)=>{return file}
     it('it sets contentType to response headers',()=>{
       serveAsStaticFile('./public/html/index.html',res);
       assert.deepEqual(res['Content-Type'],'text/html')
     })
-
   })
 })
 
@@ -94,6 +95,13 @@ describe('app',()=>{
       request(app,{method:'POST',url:'/registerForm'},(res)=>{
         th.should_be_redirected_to(res,'html/login.html');
         done();
+      })
+    })
+  })
+  describe.skip('get /home ',()=>{
+    it('shows user home page ',done=>{
+      request(app,{method:'GET',url:'/home'},(res)=>{
+        th.body_contains('addNew');
       })
     })
   })

@@ -1,4 +1,5 @@
 let fs = require('fs');
+
 const getContentType = function(filePath) {
   let fileExtension = filePath.slice(filePath.lastIndexOf('.'));
   console.log(fileExtension);
@@ -16,8 +17,6 @@ const getContentType = function(filePath) {
 }
 
 let isStaticFileRequest = function(file,method){
-  console.log(fs.existsSync(file));
-  console.log(method == 'GET');
   return fs.existsSync(file)&&method == 'GET';
 }
 
@@ -37,7 +36,7 @@ let setResourcePath = function(resource){
 
 let staticFileHandler = function(req,res){
   let source = setResourcePath(req.url);
-  if(isStaticFileRequest(source,req.method)) return serveAsStaticFile(source,res);
+  if(isStaticFileRequest(source,req.method)) return serveAsStaticFile(source,res,fs);
 }
 
 exports.staticFileHandler = staticFileHandler;
