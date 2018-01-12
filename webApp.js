@@ -30,7 +30,7 @@ let invoke = function(req,res){
   let handler = this._handlers[req.method][req.url];
   if(!handler){
     res.statusCode = 404;
-    res.write('File not found!');
+    res.write(`${req.url} File not found!`);
     res.end();
     return;
   }
