@@ -11,6 +11,11 @@ let users = {
   },
   "undefined": {
     "todos": []
+  },
+  "raghus": {
+    "name": "raghu",
+    "userId": "raghus",
+    "todos": []
   }
 }
  exports.users = users

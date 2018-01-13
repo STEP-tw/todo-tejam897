@@ -80,4 +80,7 @@ app.get('/logout',(req,res)=>{
   fs.writeFileSync('loggedinUsers.js',`let users = ${toS(loggedinUsers)}\n exports.users = users`);
   res.redirect('html/index.html');
 });
+app.post('/html/showTodo.html',(req,res)=>{
+  res.redirect('/html/showTodo.html');
+})
 module.exports = app;
