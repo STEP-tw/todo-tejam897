@@ -7,8 +7,7 @@ let users = {
   "tejam": {
     "name": "teja",
     "userId": "tejam",
-    "todos": [],
-    "userNum": 1515760798049
+    "todos": []
   },
   "undefined": {
     "todos": []

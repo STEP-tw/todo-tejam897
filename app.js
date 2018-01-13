@@ -38,7 +38,7 @@ const getContentType = function(filePath) {
 
 
 let showHomePage = function(req,res){
-  let user = req.user
+  let user = req.user;
   res.write(`<p>hii ${user.userId}  you havent created any todo<p/><p> click on addNew to add the todo<p/><button type="submit"  value =submit>addNew</button>`)
   res.end();
 }
@@ -65,12 +65,19 @@ app.post('/login',(req,res)=>{
   }
   let sessionid = new Date().getTime();
   res.setHeader('Set-Cookie',`sessionid=${sessionid}`);
+  user.sessionid =sessionid;
   loggedinUsers[sessionid] = user;
   let users = toS(loggedinUsers);
   fs.writeFileSync('loggedinUsers.js',`let users = ${users}\n exports.users = users`);
   console.log(user);
-  res.redirect('/home');
+  res.redirect('html/home.html');
 });
 
 app.get('/home',showHomePage);
+app.get('/logout',(req,res)=>{
+  delete loggedinUsers[req.user.sessionid];
+  delete req.user.sessionid;
+  fs.writeFileSync('loggedinUsers.js',`let users = ${toS(loggedinUsers)}\n exports.users = users`);
+  res.redirect('html/index.html');
+});
 module.exports = app;

@@ -98,10 +98,11 @@ describe('app',()=>{
       })
     })
   })
-  describe.skip('get /home ',()=>{
+  describe('get /home ',()=>{
     it('shows user home page ',done=>{
-      request(app,{method:'GET',url:'/home'},(res)=>{
-        th.body_contains('addNew');
+      request(app,{method:'GET',url:'/home',user:{userId:'tejam'}},(res)=>{
+        th.body_contains(res,'addNew');
+        done();
       })
     })
   })
