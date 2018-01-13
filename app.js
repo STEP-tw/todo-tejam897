@@ -81,6 +81,7 @@ app.get('/logout',(req,res)=>{
   res.redirect('html/index.html');
 });
 app.post('/html/showTodo.html',(req,res)=>{
+  console.log(req.body);
   res.redirect('/html/showTodo.html');
 })
 module.exports = app;

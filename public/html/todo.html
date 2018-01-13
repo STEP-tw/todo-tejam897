@@ -5,21 +5,30 @@
     <title></title>
   </head>
   <body>
-    <script type="text/javascript">
-      let appendNew = function(){
-        let item = document.createElement('input');
-        item.name = item;
-        let todo = document.getElementsByClassName('TODO');
-        todo.appendChild(item)
-      }
+    <script type="text/javascript" >
+    let todoItems = 1;
+    let appendNew = function(){
+      let div=document.createElement('div');
+      let item = document.createElement('input');
+      let para = document.createElement('p');
+      para.innerHTML = `item${todoItems}:`;
+      para.appendChild(item);
+      item.name = `item${todoItems}`
+      div.appendChild(para)
+      let todo = document.getElementById('todoItems');
+      todo.appendChild(div);
+      todoItems++;
+    }
     </script>
     <p>you can create your new TODO here</p>
     <p>Please give your title in title BLock</p>
     <p>you can give your description in description Block</p>
     <p>click on addItem to add your new todo item</p><br><br>
-    <form class="TODO" action="showTodo.html" method="post">
-      TITLE:<input type="text" name="TITLE" value=""><br><br>
-      Description<input type="text" name="Description" value="">(optional)<br><br>
+    <form  class='TODO' action="showTodo.html" method="post">
+        TITLE:<input type="text" name="TITLE" value=""><br><br>
+        Description<input type="text" name="Description" value="">(optional)<br><br>
+      <div id="todoItems">
+      </div>
       <button type="button" name="button" onclick = 'appendNew()'>addItem</button><br><br><br>
       <button type="submit" name="button"> complete TODO</button>
     </form>
