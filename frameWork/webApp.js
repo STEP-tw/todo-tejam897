@@ -1,3 +1,6 @@
+const fs = require('fs');
+const getContentType = require('../lib/contentType.js').getContentType;
+
 const toKeyValue = kv=>{
     let parts = kv.split('=');
     return {key:parts[0].trim(),value:parts[1].trim()};
@@ -10,6 +13,17 @@ const accumulate = (o,kv)=> {
 
 const parseBody = text=> text &&
 text.split('&').map(toKeyValue).reduce(accumulate,{}) || {};
+
+let serveFile = function(data,contentType){
+
+}
+let sendFile = function(filePath){
+  let data = fs.readFileSync(filePath);
+  this.statusCode = 200;
+  this.setHeader('Content-Type',getContentType(filePath));
+  this.write(data);
+  this.end();
+}
 
 let redirect = function(path){
   console.log(`redirecting to ${path}`);
@@ -59,8 +73,9 @@ let urlIsOneOf = function(urls){
 }
 
 const main = function(req,res){
-  console.log(req.headers);
+  console.log('new request');
   res.redirect = redirect.bind(res);
+  res.sendFile = sendFile.bind(res);
   req.urlIsOneOf = urlIsOneOf.bind(req);
   req.cookies = parseCookies(req.headers.cookie||'');
   let content="";

@@ -1,11 +1,7 @@
 let fs = require('fs');
-const timeStamp = require('./time.js').timeStamp;
+const timeStamp = require('./frameWork/time.js').timeStamp;
 const http = require('http');
-let app = require('./app.js');
-
-
-
-
+let app = require('./lib/app.js');
 const PORT = 8080;
 let server = http.createServer(app);
 server.on('error',e=>console.error('**error**',e.message));
