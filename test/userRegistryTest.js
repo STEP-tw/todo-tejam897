@@ -12,15 +12,15 @@ let userRegistry = require('../js/userRegistry.js');
 //   callBack(err,null);
 //   return;
 // }
-
-describe('userRegistry',()=>{
-  beforeEach(()=>{
-    registry = new userRegistry('users.json');
-  });
-  describe('loadUser()',()=>{
-    it('loads stored users details and sets users in regitsry',(done)=>{
-      registry.loadUsers();
-      assert.deepEqual(registry.users,{})
-    })
-  })
-})
+// 
+// describe('userRegistry',()=>{
+//   beforeEach(()=>{
+//     registry = new userRegistry('users.json');
+//   });
+//   describe('loadUser()',()=>{
+//     it('loads stored users details and sets users in regitsry',(done)=>{
+//       registry.loadUsers();
+//       assert.deepEqual(registry.users,{})
+//     })
+//   })
+// })

@@ -1,5 +1,5 @@
 let fs = require('fs');
-const timeStamp = require('./frameWork/time.js').timeStamp;
+const timeStamp = require('./serverFrameWork/time.js').timeStamp;
 const http = require('http');
 let app = require('./lib/app.js');
 const PORT = 8080;
