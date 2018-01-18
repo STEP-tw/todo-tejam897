@@ -19,7 +19,8 @@ th.should_not_have_cookie = (res,name)=> {
 th.should_have_cookie = (res,name,value)=> {
   console.log(res.headers);
   let cookieText = res.headers['Set-Cookie'];
-  assert.include(cookieText,`${name}=${value}`);
+  assert.include(cookieText,`${name}=`);
+  value&&assert.include(cookieText,`${value}`)
 };
 th.should_have_expiring_cookie = (res,name,value)=> {
   console.log(res.headers);

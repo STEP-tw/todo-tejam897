@@ -25,7 +25,6 @@ describe('response',()=>{
   describe('setHeader',()=>{
     it('sets the given key value as response headers',()=>{
       res.setHeader('contentType','html');
-      console.log(res);
       assert.deepEqual(res.contentType,'html')
     })
   })
@@ -64,16 +63,33 @@ describe('app',()=>{
   })
   describe('get /home.html ',()=>{
     it('shows user home page ',done=>{
-      request(app,{method:'GET',url:'/templates/home.html',user:{userId:'tejam'}},(res)=>{
+      request(app,{method:'GET',url:'/templates/home.html'},(res)=>{
         th.body_contains(res,'addNew');
         done();
       })
     })
   })
-  describe('post /login',()=>{
-    it('redirect to login page if the user details are wrong',()=>{
-      request(app,{method:'POST',url:'/login',user:{name:'raj',userId:'rajm'}},(res)=>{
-        th.should_be_redirected_to(res,'/login.html')
+  describe('post /login badUser',()=>{
+    it('redirect to login page ',()=>{
+      request(app,{method:'POST',url:'/login',body:`name=raj&userId=rajm`},(res)=>{
+        th.should_be_redirected_to(res,'/login.html');
+      })
+    })
+    it('sets logInFailed cookie with a truthy value',()=>{
+      request(app,{method:'POST',url:'/login',body:`name=raj&userId=rajm`},(res)=>{
+        th.should_have_cookie(res,'logInFailed','true');
+      })
+    })
+  })
+  describe('post /login validUser',()=>{
+    it('should set sessionId cookie',()=>{
+      request(app,{method:'POST',url:'/login',body:`name=teja&userId=tejam`},(res)=>{
+        th.should_have_cookie(res,'sessionid');
+      })
+    })
+    it('should redirect home page',()=>{
+      request(app,{method:'POST',url:'/login',body:`name=teja&userId=tejam`},(res)=>{
+        th.should_be_redirected_to(res,'./templates/home.html');
       })
     })
   })
