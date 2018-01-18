@@ -20,7 +20,6 @@ res.write = function(content){
 res.end = function(){
   res.finished = true;
 }
-
 describe('response',()=>{
   describe('setHeader',()=>{
     it('sets the given key value as response headers',()=>{
@@ -42,8 +41,6 @@ describe('response',()=>{
     })
   })
 })
-
-
 describe('app',()=>{
   describe('GET /bad',()=>{
     it('responds with 404',done=>{

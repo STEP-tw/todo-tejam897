@@ -1,5 +1,6 @@
 class User {
-  constructor(userId,todos) {
+  constructor(name,userId,todos) {
+    this.name = name;
     this.userId = userId;
     this.todos = todos||{};
   }
@@ -7,7 +8,7 @@ class User {
     let todoId = todo.title;
     return this.todos[todoId] = todo;
   }
-  get getTodos(){
+  getTodos(){
     return this.todos;
   }
 }
