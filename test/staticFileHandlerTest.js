@@ -1,6 +1,6 @@
 const chai = require('chai');
 let assert = chai.assert;
-const staticFileHandler = require('../lib/staticFileHandler.js');
+const staticFileHandler = require('../lib/models/staticFileHandler.js');
 let fs = {};
 fs.existsSync = function(file){
   return file == './public/index.html'
