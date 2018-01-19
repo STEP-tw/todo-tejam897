@@ -13,44 +13,50 @@ describe('app',()=>{
       })
     })
   })
-  describe('get /',()=>{
-    it('it serves indexpage if the user not loggedIn',()=>{
-      request(app,{method:'GET',cookies:{},url:'/'},(res)=>{
-        assert.equal(res.statusCode,200);
-        th.body_contains(res,'TODO');
+
+  describe('login handler', () => {
+    describe('get /', () => {
+      it('it serves login if the user not loggedIn', () => {
+        request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
+          assert.equal(res.statusCode, 200);
+          th.body_contains(res, 'Login here');
+        })
       })
     })
-  })
-  describe('get /home.html ',()=>{
-    it('shows user home page ',done=>{
-      request(app,{method:'GET',url:'/templates/home.html'},(res)=>{
-        th.body_contains(res,'addNew');
-        done();
+    describe('get /login', () => {
+      it('it serves login if the user not loggedIn', () => {
+        request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
+          assert.equal(res.statusCode, 200);
+          th.body_contains(res, 'Login here');
+        })
+      })
+
+      
+    })
+    describe('post /login badUser', () => {
+      it('redirect to login page ', () => {
+        request(app, { method: 'POST', url: '/login', body: `name=raj&userId=rajm` }, (res) => {
+          th.should_be_redirected_to(res, '/login');
+        })
+      })
+      it('sets logInFailed cookie with a truthy value', () => {
+        request(app, { method: 'POST', url: '/login', body: `name=raj&userId=rajm` }, (res) => {
+          th.should_have_cookie(res, 'message', 'Login Failed');
+        })
       })
     })
-  })
-  describe('post /login badUser',()=>{
-    it('redirect to login page ',()=>{
-      request(app,{method:'POST',url:'/login',body:`name=raj&userId=rajm`},(res)=>{
-        th.should_be_redirected_to(res,'/login.html');
+    describe('post /login validUser', () => {
+      it('should set sessionId cookie', () => {
+        request(app, { method: 'POST', url: '/login', body: `name=teja&userId=tejam` }, (res) => {
+          th.should_have_cookie(res, 'sessionid');
+        })
+      })
+      it('should redirect home page', () => {
+        request(app, { method: 'POST', url: '/login', body: `name=teja&userId=tejam` }, (res) => {
+          th.should_be_redirected_to(res, '/todolists');
+        })
       })
     })
-    it('sets logInFailed cookie with a truthy value',()=>{
-      request(app,{method:'POST',url:'/login',body:`name=raj&userId=rajm`},(res)=>{
-        th.should_have_cookie(res,'logInFailed','true');
-      })
-    })
-  })
-  describe('post /login validUser',()=>{
-    it('should set sessionId cookie',()=>{
-      request(app,{method:'POST',url:'/login',body:`name=teja&userId=tejam`},(res)=>{
-        th.should_have_cookie(res,'sessionid');
-      })
-    })
-    it('should redirect home page',()=>{
-      request(app,{method:'POST',url:'/login',body:`name=teja&userId=tejam`},(res)=>{
-        th.should_be_redirected_to(res,'./templates/home.html');
-      })
-    })
-  })
+
+  });
 });

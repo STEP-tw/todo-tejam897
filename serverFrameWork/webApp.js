@@ -37,18 +37,13 @@ const parseCookies = text => {
 
 let invoke = function (req, res) {
   let handler = this._handlers[req.method][req.url];
-  if (!handler) {
-    res.statusCode = 404;
-    res.write(`${req.url} File not found!`);
-    res.end();
-    return;
-  }
-  handler(req, res);
+  handler && handler(req, res);
 }
 
 const initialize = function () {
   this._handlers = { GET: {}, POST: {} };
   this._preprocess = [];
+  this._postprocess = [];
 };
 
 const get = function (url, handler) {
@@ -61,6 +56,10 @@ const post = function (url, handler) {
 
 const use = function (handler) {
   this._preprocess.push(handler);
+};
+
+const postUse = function (handler) {
+  this._postprocess.push(handler);
 };
 
 let urlIsOneOf = function (urls) {
@@ -77,15 +76,27 @@ const main = function (req, res) {
   req.on('end', () => {
     req.body = qs.parse(content);
     content = "";
-    debugger;
-    this._preprocess.forEach(middleware => {
-      if (res.finished) return;
-      middleware(req, res);
-    });
+    runMiddlewares(this._preprocess, req, res);
     if (res.finished) return;
     invoke.call(this, req, res);
+    runMiddlewares(this._postprocess, req, res);
+    if (!res.finished) sendResourceNotFound(res, req.url)
   });
 };
+
+const runMiddlewares = function(middlewares, req, res){
+  if(res.finished) return;
+  middlewares.forEach(middleware => {
+    if (res.finished) return;
+    middleware(req, res);
+  });
+}
+
+const sendResourceNotFound = function (res, url) {
+  res.statusCode = 404;
+  res.write(`${url} File not found!`);
+  res.end();
+}
 
 let create = () => {
   let rh = (req, res) => {
@@ -95,6 +106,7 @@ let create = () => {
   rh.get = get;
   rh.post = post;
   rh.use = use;
+  rh.postUse = postUse;
   return rh;
 }
 
