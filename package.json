@@ -2,7 +2,7 @@
   "name": "todo-tejam897",
   "version": "1.0.0",
   "description": "## Objective",
-  "main": "addItem.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },

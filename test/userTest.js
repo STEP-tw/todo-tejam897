@@ -1,6 +1,6 @@
 const chai = require('chai');
 let assert = chai.assert;
-let User = require('../js/user.js');
+let User = require('../lib/models/user.js');
 describe('user',()=>{
   describe('getTodos',()=>{
     it('should give the all todos of user',()=>{

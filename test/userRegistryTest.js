@@ -1,6 +1,6 @@
 let chai = require('chai');
 let assert = chai.assert;
-let userRegistry = require('../js/userRegistry.js');
+let userRegistry = require('../lib/models/userRegistry.js');
 
 // let fs = {};
 // fs.readFile(path,encoding,callBack){
