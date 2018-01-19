@@ -26,7 +26,7 @@ describe('app', () => {
 
   describe('login handler', () => {
     describe('get /', () => {
-      it('it serves login if the user not loggedIn', () => {
+      it('it serves login page if the user not loggedIn', () => {
         request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
           console.log(res);
           assert.equal(res.statusCode, 200);
@@ -35,7 +35,7 @@ describe('app', () => {
       })
     })
     describe('get /login', () => {
-      it('it serves login if the user not loggedIn', () => {
+      it('it serves login page if the user not loggedIn', () => {
         request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
           assert.equal(res.statusCode, 200);
           th.body_contains(res, 'Login here');
@@ -51,6 +51,11 @@ describe('app', () => {
     describe('post /login badUser', () => {
       it('redirect to login page ', () => {
         request(app, { method: 'POST', url: '/login', body: `userId=rajm` }, (res) => {
+          th.should_be_redirected_to(res, '/login');
+        })
+      });
+      it('redirect to login page when no userID is given', () => {
+        request(app, { method: 'POST', url: '/login', body: `userId=` }, (res) => {
           th.should_be_redirected_to(res, '/login');
         })
       })
@@ -72,6 +77,19 @@ describe('app', () => {
         })
       })
     })
-
+  });
+  describe('logout handler', () => {
+    describe('/logout', () => {
+      it('should logout the user when user is logged in', () => {
+        request(app, { method: 'GET', url: '/logout', headers: { cookie: "sessionid=12345" } }, (res) => {
+          th.should_be_redirected_to(res, '/');
+        })
+      });
+      it('should redirect to / when user is not logged in', () => {
+        request(app, { method: 'GET', url: '/logout' }, (res) => {
+          th.should_be_redirected_to(res, '/login');
+        })
+      });
+    });
   });
 });

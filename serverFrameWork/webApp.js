@@ -1,5 +1,4 @@
 const fs = require('fs');
-const getContentType = require('../lib/contentType.js').getContentType;
 const qs = require('querystring');
 
 const toKeyValue = kv => {
@@ -11,14 +10,6 @@ const accumulate = (o, kv) => {
   o[kv.key] = kv.value;
   return o;
 };
-
-let sendFile = function (filePath) {
-  let data = fs.readFileSync(filePath);
-  this.statusCode = 200;
-  this.setHeader('Content-Type', getContentType(filePath));
-  this.write(data);
-  this.end();
-}
 
 let redirect = function (path) {
   console.log(`redirecting to ${path}`);
@@ -68,7 +59,6 @@ let urlIsOneOf = function (urls) {
 
 const main = function (req, res) {
   res.redirect = redirect.bind(res);
-  res.sendFile = sendFile.bind(res);
   req.urlIsOneOf = urlIsOneOf.bind(req);
   req.cookies = parseCookies(req.headers.cookie || '');
   let content = "";

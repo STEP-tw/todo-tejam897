@@ -68,4 +68,15 @@ describe('SessionHandler', () => {
       assert.isFalse(sessionHandler.logInUser());
     });
   });
+  describe('logoutUser', () => {
+    it('should delete sessionId of user if loggedIn', () => {
+      assert.isTrue(sessionHandler.logoutUser('12345'));
+    });
+    it('should return false  when sessionId is inValid', () => {
+      assert.isFalse(sessionHandler.logoutUser('123'));
+    });
+    it('should return false  when sessionId is not provided', () => {
+      assert.isFalse(sessionHandler.logoutUser());
+    });
+  });
 });
