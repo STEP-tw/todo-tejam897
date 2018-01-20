@@ -28,7 +28,6 @@ describe('app', () => {
     describe('get /', () => {
       it('it serves login page if the user not loggedIn', () => {
         request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
-          console.log(res);
           assert.equal(res.statusCode, 200);
           th.body_contains(res, 'Login here');
         })
@@ -43,7 +42,7 @@ describe('app', () => {
       })
 
       it('redirect to todolists page if user loggedin', () => {
-        request(app, { method: 'GET', url: '/login', headers : {cookie: "sessionid=12345" } }, (res) => {
+        request(app, { method: 'GET', url: '/login', headers: { cookie: "sessionid=12345" } }, (res) => {
           th.should_be_redirected_to(res, '/todolists');
         })
       })
@@ -89,6 +88,46 @@ describe('app', () => {
         request(app, { method: 'GET', url: '/logout' }, (res) => {
           th.should_be_redirected_to(res, '/login');
         })
+      });
+    });
+  });
+
+  describe('todolists handler', () => {
+    describe('GET /todolists', () => {
+      it('should redirect to login when not logged in', () => {
+        request(app, { method: 'GET', url: '/todolists'}, (res) => {
+          th.should_be_redirected_to(res, '/login');
+        });
+      });
+      it('should respond with todolists page with no lists present', () => {
+        request(app, { method: 'GET', url: '/todolists', headers: { cookie: "sessionid=12345" } }, (res) => {
+          th.body_contains(res, 'Title :')
+          th.body_contains(res, 'Description :');
+        });
+      });
+    });
+
+    describe('POST /todolists', () => {
+      describe('saves todolist', () => {
+        it('should add a todo list for user', () => {
+          request(app, {
+            method: 'POST', url: '/todolists',
+            body: `title=test&description=testing`,
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            th.should_be_redirected_to(res, '/todolists');
+          })
+        });
+        it('should respond with the added todolist', () => {
+          request(app, {
+            method: 'GET', url: '/todolists',
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            th.body_contains(res, 'test');
+            th.body_contains(res, 'Title :')
+            th.body_contains(res, 'Description :');
+          })
+        });
       });
     });
   });

@@ -12,7 +12,6 @@ const accumulate = (o, kv) => {
 };
 
 let redirect = function (path) {
-  console.log(`redirecting to ${path}`);
   this.statusCode = 302;
   this.setHeader('location', path);
   this.end();
