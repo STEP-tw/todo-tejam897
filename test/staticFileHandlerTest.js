@@ -19,7 +19,7 @@ describe('staticFileHandler', () => {
     })
   })
   describe('execute()', () => {
-    it('will not serve the given file if the method is not the get', () => {
+    it('will not serve the given file if the method is not get', () => {
       let req = { method: 'POST' };
       let res = {};
       let handler = staticFolder.getHandler()
