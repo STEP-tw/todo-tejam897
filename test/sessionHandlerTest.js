@@ -1,34 +1,16 @@
 let chai = require('chai');
 let assert = chai.assert;
 let SessionHandler = require('../lib/models/sessionHandler');
-let fs = {
-  readFileSync: (fileName) => {
-    return `{"teja" : {"username" : "tejam"},
-  "nrjais" : {"username" : "nrjais", "sessionId" : "12345"}}`
-  }
-}
+
 let sessionHandler;
 
 describe('SessionHandler', () => {
   beforeEach(() => {
-    sessionHandler = new SessionHandler('', fs);
-    sessionHandler.loadSessionData();
-  });
-  describe('loadSessionData', () => {
-    it('should parse and loads all users data', () => {
-      let expected = {
-        "teja": { "username": "tejam" },
-        "nrjais": { "username": "nrjais", "sessionId": "12345" }
-      }
-      assert.deepEqual(sessionHandler.users, expected);
-    });
-
-    it('should load empty object when parsing fails', () => {
-      sessionHandler = new SessionHandler('', {readFileSync:fileName=>`{ds}[`});
-      sessionHandler.loadSessionData();
-      let expected = {};
-      assert.deepEqual(sessionHandler.users, expected);
-    });
+    let users = {
+      "teja": { "username": "tejam" },
+      "nrjais": { "username": "nrjais", "sessionId": "12345" }
+    };
+    sessionHandler = new SessionHandler(users);
   });
 
   describe('isValidUser', () => {
@@ -54,7 +36,7 @@ describe('SessionHandler', () => {
   });
   describe('getUserBySessionId', () => {
     it('should return a user when user is present with given valid sessionId', () => {
-      let expected = { username: 'nrjais',sessionId:'12345' };
+      let expected = { username: 'nrjais', sessionId: '12345' };
       assert.deepEqual(sessionHandler.getUserBySessionId('12345'), expected);
     });
     it('should return false when sessionID is invalid', () => {
