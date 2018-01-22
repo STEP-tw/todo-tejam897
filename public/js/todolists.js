@@ -31,7 +31,6 @@ const sendRequest = function(method, url, data, onLoad){
   req.open(method, url);
   req.addEventListener('load',function(){
     let res = this.response;
-    console.log(res);
     onLoad(res);
   });
   req.send(data || '');
