@@ -4,3 +4,5 @@ node_modules/
 loggedinUsers.js
 registeredUsers.js
 data/*
+.nyc_output
+coverage
