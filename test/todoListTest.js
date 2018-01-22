@@ -58,4 +58,16 @@ describe('TodoList', () => {
       assert.isTrue(todoList._todoItems[1].isDone())
     });
   });
+
+  describe('deleteTodoItem', () => {
+    it('should return false if the item is not present with given id', () => {
+      assert.isFalse(todoList.deleteTodoItem(12))
+    });
+    it('should delete todoItem of given id', () => {
+      todoList.addTodoItem('test');
+      assert.isTrue(todoList.deleteTodoItem(1));
+      assert.isUndefined(todoList._todoItems[1]);
+      assert.doesNotHaveAnyKeys(todoList._todoItems, 1);
+    });
+  });
 });

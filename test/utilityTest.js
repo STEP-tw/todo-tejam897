@@ -1,13 +1,20 @@
 let chai = require('chai');
 let assert = chai.assert;
-process.env.TESTMODE = false;
 const timeStamp = require('../lib/time').timeStamp;
 const logRequest = require('../lib/logger');
+const DefaultHandler = require('../lib/models/defaultHandler');
 
 describe('timeStamp', () => {
   it('should return current date', () => {
     let expected = new Date().toDateString();
     assert.include(timeStamp(), expected);
+  });
+});
+
+describe('defaultHandler', () => {
+  it('should return undefined', () => {
+    let defaultHandler = new DefaultHandler();
+    assert.isUndefined(defaultHandler.execute());
   });
 });
 

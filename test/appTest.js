@@ -2,7 +2,6 @@ let chai = require('chai');
 let assert = chai.assert;
 let request = require('./requestSimulator.js');
 let th = require('./testHelper.js');
-let fileSystem = require('fs');
 let app = require('../lib/app.js');
 
 describe('app', () => {
@@ -257,6 +256,46 @@ describe('app', () => {
               request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
                 th.body_contains(res, 'checked');
                 th.body_contains(res, 'testingItem');
+                done();
+              })
+            });
+          });
+        });
+      });
+    });
+    describe('DELETE /todolist/[listId]', () => {
+      it('should respond with success message when item is deleted', (done) => {
+        request(app, {
+          method: 'POST', url: '/todolists',
+          body: `title=test&description=testing`,
+          headers: { cookie: 'sessionid=12345' }
+        }, res => {
+          request(app, {
+            method: 'POST', url: '/todolist/1',
+            body: `objective=testingItem`,
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            request(app, { method: 'DELETE', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1" }, (res) => {
+              th.body_contains(res, 'success');
+              done();
+            });
+          });
+        });
+      });
+      it('should respond with page without the deleted item', (done) => {
+        request(app, {
+          method: 'POST', url: '/todolists',
+          body: `title=test&description=testing`,
+          headers: { cookie: 'sessionid=12345' }
+        }, res => {
+          request(app, {
+            method: 'POST', url: '/todolist/1',
+            body: `objective=testingItem`,
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            request(app, { method: 'DELETE', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1" }, (res) => {
+              request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
+                assert.notInclude(res.body, 'testingItem');
                 done();
               })
             });

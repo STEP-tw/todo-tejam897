@@ -99,4 +99,20 @@ describe('user', () => {
       assert.isTrue(user._todoLists[1]._todoItems[1].isDone());
     });
   });
+  describe('deleteTodoItem', () => {
+    it('should return false if list is not present with givenId', () => {
+      assert.isFalse(user.deleteTodoItem(2, 3))
+    });
+    it('should return false if list is present but not the item', () => {
+      user.addTodoList('testing', 'itemStatus')
+      assert.isFalse(user.deleteTodoItem(1, 3));
+    });
+    it('should return true if list and item are present', () => {
+      user.addTodoList('testing', 'itemStatus');;
+      user.addTodoItemTo(1, 'marking status')
+      assert.isTrue(user.deleteTodoItem(1, 1));
+      assert.isUndefined(user._todoLists[1]._todoItems[1]);
+      assert.doesNotHaveAnyKeys(user._todoLists[1]._todoItems, 1);
+    });
+  });
 });

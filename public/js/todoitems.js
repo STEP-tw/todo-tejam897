@@ -10,6 +10,16 @@ const changeStatus = function(event){
   });
 }
 
+const deleteTodoItem = function(event){
+  let targetItem = event.target.parentNode;
+  let itemId = targetItem.id;
+  let url = window.location.pathname;
+  let data = `itemId=${itemId}`;
+  sendRequest('DELETE', url, data, res=>{
+    if(res == 'success') targetItem.remove();
+  });
+}
+
 const sendRequest = function (method, url, data, onLoad) {
   let req = new XMLHttpRequest();
   req.open(method, url);
