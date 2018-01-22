@@ -61,4 +61,27 @@ describe('user', () => {
       assert.deepEqual(items, expected);
     });
   });
+
+  describe('updateTodoList', () => {
+    it('should return false if the list is not present with given id', () => {
+      assert.isFalse(user.updateTodoList(12,'failingtest'))
+    });
+    it('should update title of todoList of given id', () => {
+      user.addTodoList('test','testing');
+      assert.isTrue(user.updateTodoList(1,'edited'));
+      assert.equal(user._todoLists[1]._title,'edited');
+    });
+  });
+  
+  describe('deleteTodoList', () => {
+    it('should return false if the list is not present with given id', () => {
+      assert.isFalse(user.deleteTodoList(12))
+    });
+    it('should delete todoList of given id', () => {
+      user.addTodoList('test','testing');
+      assert.isTrue(user.deleteTodoList(1));
+      assert.isUndefined(user._todoLists[1]);
+      assert.doesNotHaveAnyKeys(user._todoLists, 1);
+    });
+  });
 });

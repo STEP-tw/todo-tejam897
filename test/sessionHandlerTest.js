@@ -22,7 +22,15 @@ describe('SessionHandler', () => {
       }
       assert.deepEqual(sessionHandler.users, expected);
     });
+
+    it('should load empty object when parsing fails', () => {
+      sessionHandler = new SessionHandler('', {readFileSync:fileName=>`{ds}[`});
+      sessionHandler.loadSessionData();
+      let expected = {};
+      assert.deepEqual(sessionHandler.users, expected);
+    });
   });
+
   describe('isValidUser', () => {
     it('should return true for valid user', () => {
       assert.isTrue(sessionHandler.isValidUser('teja'));

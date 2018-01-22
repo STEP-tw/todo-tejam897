@@ -7,12 +7,12 @@ let request = function(app,options,onComplete){
   req.url = options.url;
   req.headers = options.headers||{};
   let res={
-    end:()=>{
+    end:(data)=>{
       res.finished = true;
       let result = {
         statusCode:res.statusCode||200,
         headers:res_headers,
-        body:res_contents
+        body:res_contents + (data || '')
       };
       onComplete(result);
     },

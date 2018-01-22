@@ -42,4 +42,10 @@ describe('TodoList', () => {
       assert.deepEqual(todoList.getAllTodoItems(), expected);
     });
   });
+  describe('updateTitle', () => {
+    it('should update the list title with given title', () => {
+      todoList.updateTitle('update');
+      assert.equal(todoList._title,'update')
+    });
+  });
 });
