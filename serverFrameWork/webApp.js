@@ -17,11 +17,7 @@ let redirect = function (path) {
 };
 
 const parseCookies = text => {
-  try {
-    return text && text.split(';').map(toKeyValue).reduce(accumulate, {}) || {};
-  } catch (e) {
-    return {};
-  }
+  return text && text.split(';').map(toKeyValue).reduce(accumulate, {}) || {};
 }
 
 let invoke = function (req, res) {

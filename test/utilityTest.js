@@ -11,7 +11,7 @@ describe('timeStamp', () => {
   });
 });
 
-describe.skip('logRequest', () => {
+describe('logRequest', () => {
   it('should return current date', (done) => {
     let fs = {
       appendFile: function (filename, data) {
@@ -31,6 +31,6 @@ describe.skip('logRequest', () => {
       cookies  : 'some cookies',
       body  : 'some text'
     }
-    logRequest(req,fs);
+    logRequest(req,null,fs);
   });
 });
