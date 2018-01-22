@@ -48,4 +48,14 @@ describe('TodoList', () => {
       assert.equal(todoList._title,'update')
     });
   });
+  describe('changeStatus', () => {
+    it('should return false if item is not present', () => {
+      assert.isFalse(todoList.changeStatus(12));
+    });
+    it('should return true if item is present', () => {
+      todoList.addTodoItem('status test')
+      assert.isTrue(todoList.changeStatus(1));
+      assert.isTrue(todoList._todoItems[1].isDone())
+    });
+  });
 });

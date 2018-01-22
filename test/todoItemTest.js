@@ -22,4 +22,15 @@ describe('TodoItem', () => {
       assert.isFalse(todoItem.isDone())
     });
   });
+  describe('changeStatus', () => {
+    it('should return true', () => {
+      assert.isTrue(todoItem.changeStatus())
+    });
+    it('should toggle done status', () => {
+      todoItem.changeStatus();
+      assert.isTrue(todoItem.isDone());
+      todoItem.changeStatus();
+      assert.isFalse(todoItem.isDone());
+    });
+  });
 });

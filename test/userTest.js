@@ -63,7 +63,7 @@ describe('user', () => {
   });
 
   describe('updateTodoList', () => {
-    it('should return false if the list is not present with given id', () => {
+    it('should return false if the list is not present with given id', () => { 
       assert.isFalse(user.updateTodoList(12,'failingtest'))
     });
     it('should update title of todoList of given id', () => {
@@ -82,6 +82,21 @@ describe('user', () => {
       assert.isTrue(user.deleteTodoList(1));
       assert.isUndefined(user._todoLists[1]);
       assert.doesNotHaveAnyKeys(user._todoLists, 1);
+    });
+  });
+  describe('changeStatus', () => {
+    it('should return false if list is not present with givenId', () => {
+      assert.isFalse(user.changeStatus(2,3))
+    });
+    it('should return false if list is present but not the item', () => {
+      user.addTodoList('testing','itemStatus')
+      assert.isFalse(user.changeStatus(1,3));
+    });
+    it('should return true if list and item are present', () => {
+      user.addTodoList('testing','itemStatus');;
+      user.addTodoItemTo(1,'marking status')
+      assert.isTrue(user.changeStatus(1,1));
+      assert.isTrue(user._todoLists[1]._todoItems[1].isDone());
     });
   });
 });

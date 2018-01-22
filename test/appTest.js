@@ -200,11 +200,30 @@ describe('app', () => {
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
           }, res => {
-            th.should_be_redirected_to(res,'/todolist/4');
+            th.should_be_redirected_to(res, '/todolist/4');
             request(app, { method: 'GET', url: '/todolist/4', headers: { cookie: "sessionid=12345" } }, (res) => {
               th.body_contains(res, 'Add')
               th.body_contains(res, 'Objective :');
               th.body_contains(res, 'testingItem');
+              done();
+            });
+          });
+        });
+      });
+    });
+    describe.skip('PUT /todolist/[listId]', () => {
+      it('should respond with success message when status is changed', (done) => {
+      request(app, {
+        method: 'POST', url: '/todolists',
+        body: `title=test&description=testing`,
+        headers: { cookie: 'sessionid=12345' }
+      }, res => {
+        request(app, {
+          method: 'POST', url: '/todolist/4',
+          body: `objective=testingItem`,
+          headers: { cookie: 'sessionid=12345' }
+        }, res => {
+            request(app, { method: 'PUT', url: '/todolist/4', headers: { cookie: "sessionid=12345" }, body:"" }, (res) => {
               done();
             });
           });
