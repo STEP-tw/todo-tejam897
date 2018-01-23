@@ -1,11 +1,11 @@
 const chai = require('chai');
-let assert = chai.assert;
+const assert = chai.assert;
 const StaticFileHandler = require('../lib/models/staticFileHandler.js');
 
-let fs = {};
+const fs = {};
 fs.readFileSync = function (file) {
   return file;
-}
+};
 
 let staticFolder;
 describe('staticFileHandler', () => {
@@ -14,20 +14,20 @@ describe('staticFileHandler', () => {
   });
   describe('getFilePath()', () => {
     it('adds staticFolder to a given file', () => {
-      let staticFile = staticFolder.getFilePath('/index.html');
+      const staticFile = staticFolder.getFilePath('/index.html');
       assert.equal('./public/index.html', staticFile);
-    })
-  })
+    });
+  });
   describe('execute()', () => {
     it('will not serve the given file if the method is not get', () => {
-      let req = { method: 'POST' };
-      let res = {};
-      let handler = staticFolder.getHandler()
+      const req = { method: 'POST' };
+      const res = {};
+      const handler = staticFolder.getHandler();
       assert.isUndefined(handler(req, res));
-    })
+    });
     it('will gives file if it exists', (done) => {
-      let req = { method: 'GET', url: '/index.html' };
-      let res = {
+      const req = { method: 'GET', url: '/index.html' };
+      const res = {
         write: (data) => {
           assert.equal(data, './public/index.html');
         },
@@ -39,8 +39,8 @@ describe('staticFileHandler', () => {
           done();
         }
       };
-      let handler = staticFolder.getHandler();
+      const handler = staticFolder.getHandler();
       handler(req, res);
-    })
-  })
-})
+    });
+  });
+});

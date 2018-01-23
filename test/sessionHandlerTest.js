@@ -1,12 +1,12 @@
-let chai = require('chai');
-let assert = chai.assert;
-let SessionHandler = require('../lib/models/sessionHandler');
+const chai = require('chai');
+const assert = chai.assert;
+const SessionHandler = require('../lib/models/sessionHandler');
 
 let sessionHandler;
 
 describe('SessionHandler', () => {
   beforeEach(() => {
-    let users = {
+    const users = {
       "teja": { "username": "tejam" },
       "nrjais": { "username": "nrjais", "sessionId": "12345" }
     };
@@ -27,7 +27,7 @@ describe('SessionHandler', () => {
   });
   describe('getUserByUserName', () => {
     it('should return a user when user is present', () => {
-      let expected = { username: 'tejam' };
+      const expected = { username: 'tejam' };
       assert.deepEqual(sessionHandler.getUserByUserName('teja'), expected);
     });
     it('should return undefined when user is not present', () => {
@@ -36,7 +36,7 @@ describe('SessionHandler', () => {
   });
   describe('getUserBySessionId', () => {
     it('should return a user when user is present with given valid sessionId', () => {
-      let expected = { username: 'nrjais', sessionId: '12345' };
+      const expected = { username: 'nrjais', sessionId: '12345' };
       assert.deepEqual(sessionHandler.getUserBySessionId('12345'), expected);
     });
     it('should return false when sessionID is invalid', () => {

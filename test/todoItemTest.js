@@ -1,5 +1,5 @@
-let chai = require('chai');
-let assert = chai.assert;
+const chai = require('chai');
+const assert = chai.assert;
 
 const TodoItem = require('../lib/models/todoItem');
 let todoItem;
@@ -19,12 +19,12 @@ describe('TodoItem', () => {
   });
   describe('isDone', () => {
     it('should return status of item', () => {
-      assert.isFalse(todoItem.isDone())
+      assert.isFalse(todoItem.isDone());
     });
   });
   describe('changeStatus', () => {
     it('should return true', () => {
-      assert.isTrue(todoItem.changeStatus())
+      assert.isTrue(todoItem.changeStatus());
     });
     it('should toggle done status', () => {
       todoItem.changeStatus();
@@ -35,7 +35,7 @@ describe('TodoItem', () => {
   });
   describe('changeObjective', () => {
     it('should return true when objective is changed', () => {
-      assert.isTrue(todoItem.changeObjective('editItem'))
+      assert.isTrue(todoItem.changeObjective('editItem'));
     });
     it('should change the objective ', () => {
       todoItem.changeObjective('editItem');

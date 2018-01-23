@@ -1,7 +1,7 @@
 const qs = require('querystring');
 
-const toKeyValue = kv => {
-  let parts = kv.split('=');
+const toKeyValue = (kv) => {
+  const parts = kv.split('=');
   return { key: parts[0].trim(), value: parts[1].trim() };
 };
 
@@ -10,20 +10,20 @@ const accumulate = (o, kv) => {
   return o;
 };
 
-let redirect = function (path) {
+const redirect = function (path) {
   this.statusCode = 302;
   this.setHeader('location', path);
   this.end();
 };
 
-const parseCookies = text => {
+const parseCookies = (text) => {
   return text && text.split(';').map(toKeyValue).reduce(accumulate, {}) || {};
-}
+};
 
-let invoke = function (req, res) {
-  let handler = this._handlers[req.method][req.url];
+const invoke = function (req, res) {
+  const handler = this._handlers[req.method][req.url];
   handler && handler(req, res);
-}
+};
 
 const initialize = function () {
   this._handlers = { GET: {}, POST: {}, PUT: {}, DELETE: {} };
@@ -33,7 +33,7 @@ const initialize = function () {
 
 const get = function (url, handler) {
   this._handlers.GET[url] = handler;
-}
+};
 
 const post = function (url, handler) {
   this._handlers.POST[url] = handler;
@@ -55,44 +55,44 @@ const postUse = function (handler) {
   this._postprocess.push(handler);
 };
 
-let urlIsOneOf = function (urls) {
+const urlIsOneOf = function (urls) {
   return urls.includes(this.url);
-}
+};
 
 const main = function (req, res) {
   res.redirect = redirect.bind(res);
   req.urlIsOneOf = urlIsOneOf.bind(req);
   req.cookies = parseCookies(req.headers.cookie || '');
   let content = "";
-  req.on('data', data => content += data.toString())
+  req.on('data', (data) => content += data.toString());
   req.on('end', () => {
     req.body = qs.parse(content);
     content = "";
     runMiddlewares(this._preprocess, req, res);
-    if (res.finished) return;
+    if (res.finished) {return;}
     invoke.call(this, req, res);
     runMiddlewares(this._postprocess, req, res);
-    if (!res.finished) sendResourceNotFound(res, req.url)
+    if (!res.finished) {sendResourceNotFound(res, req.url);}
   });
 };
 
 const runMiddlewares = function (middlewares, req, res) {
-  if (res.finished) return;
-  middlewares.forEach(middleware => {
-    if (res.finished) return;
+  if (res.finished) {return;}
+  middlewares.forEach((middleware) => {
+    if (res.finished) {return;}
     middleware(req, res);
   });
-}
+};
 
 const sendResourceNotFound = function (res, url) {
   res.statusCode = 404;
   res.write(`${url} File not found!`);
   res.end();
-}
+};
 
-let create = () => {
-  let rh = (req, res) => {
-    main.call(rh, req, res)
+const create = () => {
+  const rh = (req, res) => {
+    main.call(rh, req, res);
   };
   initialize.call(rh);
   rh.get = get;
@@ -102,6 +102,6 @@ let create = () => {
   rh.delete = onDelete;
   rh.postUse = postUse;
   return rh;
-}
+};
 
 exports.create = create;

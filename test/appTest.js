@@ -1,26 +1,26 @@
-let chai = require('chai');
-let assert = chai.assert;
-let request = require('./requestSimulator.js');
-let th = require('./testHelper.js');
-let app = require('../lib/app.js');
+const chai = require('chai');
+const assert = chai.assert;
+const request = require('./requestSimulator.js');
+const th = require('./testHelper.js');
+const app = require('../lib/app.js');
 
 describe('app', () => {
   beforeEach(() => {
-    let users = {
+    const users = {
       "teja": { "username": "tejam", "name": "Teja" },
       "nrjais": { "username": "nrjais", "sessionId": "12345", "name": "Neeraj" }
-    }
+    };
     app.injectData(users);
   });
 
   describe('GET /bad', () => {
-    it('responds with 404', done => {
+    it('responds with 404', (done) => {
       request(app, { method: 'GET', url: '/bad' }, (res) => {
         assert.equal(res.statusCode, 404);
         done();
-      })
-    })
-  })
+      });
+    });
+  });
 
   describe('login handler', () => {
     describe('get /', () => {
@@ -29,59 +29,59 @@ describe('app', () => {
           assert.equal(res.statusCode, 200);
           th.body_contains(res, 'Login here');
           done();
-        })
-      })
-    })
+        });
+      });
+    });
     describe('get /login', () => {
       it('it serves login page if the user not loggedIn', (done) => {
         request(app, { method: 'GET', headers: {}, url: '/' }, (res) => {
           assert.equal(res.statusCode, 200);
           th.body_contains(res, 'Login here');
           done();
-        })
-      })
+        });
+      });
 
       it('redirect to todolists page if user loggedin', (done) => {
         request(app, { method: 'GET', url: '/login', headers: { cookie: "sessionid=12345" } }, (res) => {
           th.should_be_redirected_to(res, '/todolists');
-          done()
-        })
-      })
-    })
+          done();
+        });
+      });
+    });
     describe('post /login badUser', () => {
       it('redirect to login page ', (done) => {
         request(app, { method: 'POST', url: '/login', body: `userId=rajm` }, (res) => {
           th.should_be_redirected_to(res, '/login');
           done();
-        })
+        });
       });
       it('redirect to login page when no userID is given', (done) => {
         request(app, { method: 'POST', url: '/login', body: `userId=` }, (res) => {
           th.should_be_redirected_to(res, '/login');
           done();
-        })
-      })
+        });
+      });
       it('sets message cookie with a Login Failed', (done) => {
         request(app, { method: 'POST', url: '/login', body: `userId=rajm` }, (res) => {
           th.should_have_cookie(res, 'message', 'Login Failed');
           done();
-        })
-      })
-    })
+        });
+      });
+    });
     describe('post /login validUser', () => {
       it('should set sessionId cookie', (done) => {
         request(app, { method: 'POST', url: '/login', body: `userId=teja` }, (res) => {
           th.should_have_cookie(res, 'sessionid');
           done();
-        })
-      })
+        });
+      });
       it('should redirect home page', (done) => {
         request(app, { method: 'POST', url: '/login', body: `userId=teja` }, (res) => {
           th.should_be_redirected_to(res, '/todolists');
           done();
-        })
-      })
-    })
+        });
+      });
+    });
   });
   describe('logout handler', () => {
     describe('/logout', () => {
@@ -89,13 +89,13 @@ describe('app', () => {
         request(app, { method: 'POST', url: '/logout', headers: { cookie: "sessionid=12345" } }, (res) => {
           th.should_be_redirected_to(res, '/');
           done();
-        })
+        });
       });
       it('should redirect to / when user is not logged in', (done) => {
         request(app, { method: 'POST', url: '/logout' }, (res) => {
           th.should_be_redirected_to(res, '/login');
           done();
-        })
+        });
       });
     });
   });
@@ -110,7 +110,7 @@ describe('app', () => {
       });
       it('should respond with todolists page with no lists present', (done) => {
         request(app, { method: 'GET', url: '/todolists', headers: { cookie: "sessionid=12345" } }, (res) => {
-          th.body_contains(res, 'Title :')
+          th.body_contains(res, 'Title :');
           th.body_contains(res, 'Description :');
           done();
         });
@@ -124,17 +124,17 @@ describe('app', () => {
             method: 'POST', url: '/todolists',
             body: `title=test&description=testing`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, {
               method: 'GET', url: '/todolists',
               headers: { cookie: 'sessionid=12345' }
-            }, res => {
+            }, (res) => {
               th.body_contains(res, 'test');
-              th.body_contains(res, 'Title :')
+              th.body_contains(res, 'Title :');
               th.body_contains(res, 'Description :');
               done();
             });
-          })
+          });
         });
       });
     });
@@ -144,12 +144,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
-          request(app, { method: 'PUT', url: '/todolists', headers: { cookie: 'sessionid=12345' }, body: `listId=1&title=editing` }, res => {
+        }, () => {
+          request(app, { method: 'PUT', url: '/todolists', headers: { cookie: 'sessionid=12345' }, body: `listId=1&title=editing` }, (res) => {
             assert.equal(res.body, 'success');
             done();
           });
-        })
+        });
       });
     });
     describe('DELETE /todolists', () => {
@@ -158,12 +158,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
-          request(app, { method: 'DELETE', url: '/todolists', headers: { cookie: 'sessionid=12345' }, body: `listId=1&title=editing` }, res => {
+        }, () => {
+          request(app, { method: 'DELETE', url: '/todolists', headers: { cookie: 'sessionid=12345' }, body: `listId=1&title=editing` }, (res) => {
             assert.equal(res.body, 'success');
             done();
           });
-        })
+        });
       });
     });
     describe('GET /todolist/[listId]', () => {
@@ -175,7 +175,7 @@ describe('app', () => {
       });
       it('should respond with todolist page with no todoItems', (done) => {
         request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
-          th.body_contains(res, 'Add')
+          th.body_contains(res, 'Add');
           th.body_contains(res, 'Objective :');
           done();
         });
@@ -187,15 +187,15 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, (res) => {
             th.should_be_redirected_to(res, '/todolist/1');
             request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
-              th.body_contains(res, 'Add')
+              th.body_contains(res, 'Add');
               th.body_contains(res, 'Objective :');
               th.body_contains(res, 'testingItem');
               done();
@@ -210,12 +210,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, { method: 'PUT', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1&action=change" }, (res) => {
               th.body_contains(res, 'failed');
               done();
@@ -228,12 +228,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, { method: 'PUT', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1&action=changeStatus" }, (res) => {
               th.body_contains(res, 'success');
               done();
@@ -246,18 +246,18 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
-            request(app, { method: 'PUT', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1&action=changeStatus" }, (res) => {
+          }, () => {
+            request(app, { method: 'PUT', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1&action=changeStatus" }, () => {
               request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
                 th.body_contains(res, 'checked');
                 th.body_contains(res, 'testingItem');
                 done();
-              })
+              });
             });
           });
         });
@@ -269,12 +269,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, { method: 'DELETE', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1" }, (res) => {
               th.body_contains(res, 'success');
               done();
@@ -287,17 +287,17 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
-            request(app, { method: 'DELETE', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1" }, (res) => {
+          }, () => {
+            request(app, { method: 'DELETE', url: '/todolist/1', headers: { cookie: "sessionid=12345" }, body: "itemId=1" }, () => {
               request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
                 assert.notInclude(res.body, 'testingItem');
                 done();
-              })
+              });
             });
           });
         });
@@ -310,12 +310,12 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, {
               method: 'PUT', url: '/todolist/1',
               headers: { cookie: "sessionid=12345" },
@@ -332,25 +332,25 @@ describe('app', () => {
           method: 'POST', url: '/todolists',
           body: `title=test&description=testing`,
           headers: { cookie: 'sessionid=12345' }
-        }, res => {
+        }, () => {
           request(app, {
             method: 'POST', url: '/todolist/1',
             body: `objective=testingItem`,
             headers: { cookie: 'sessionid=12345' }
-          }, res => {
+          }, () => {
             request(app, {
               method: 'PUT', url: '/todolist/1',
               headers: { cookie: "sessionid=12345" },
               body: "itemId=1&objective=editingItem&action=editItemObjective"
-            }, (res) => {
+            }, () => {
               request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
                 th.body_contains(res, 'editingItem');
                 done();
-              })
+              });
             });
           });
         });
       });
-    })
+    });
   });
 });
