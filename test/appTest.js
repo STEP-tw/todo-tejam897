@@ -303,5 +303,54 @@ describe('app', () => {
         });
       });
     });
+
+    describe('PUT /todolist/[listId]', () => {
+      it('should respond with success message when item objective is changed', (done) => {
+        request(app, {
+          method: 'POST', url: '/todolists',
+          body: `title=test&description=testing`,
+          headers: { cookie: 'sessionid=12345' }
+        }, res => {
+          request(app, {
+            method: 'POST', url: '/todolist/1',
+            body: `objective=testingItem`,
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            request(app, {
+              method: 'PUT', url: '/todolist/1',
+              headers: { cookie: "sessionid=12345" },
+              body: "itemId=1&objective=editingItem&action=editItemObjective"
+            }, (res) => {
+              th.body_contains(res, 'success');
+              done();
+            });
+          });
+        });
+      });
+      it('should respond with page with the edited todo item', (done) => {
+        request(app, {
+          method: 'POST', url: '/todolists',
+          body: `title=test&description=testing`,
+          headers: { cookie: 'sessionid=12345' }
+        }, res => {
+          request(app, {
+            method: 'POST', url: '/todolist/1',
+            body: `objective=testingItem`,
+            headers: { cookie: 'sessionid=12345' }
+          }, res => {
+            request(app, {
+              method: 'PUT', url: '/todolist/1',
+              headers: { cookie: "sessionid=12345" },
+              body: "itemId=1&objective=editingItem&action=editItemObjective"
+            }, (res) => {
+              request(app, { method: 'GET', url: '/todolist/1', headers: { cookie: "sessionid=12345" } }, (res) => {
+                th.body_contains(res, 'editingItem');
+                done();
+              })
+            });
+          });
+        });
+      });
+    })
   });
 });

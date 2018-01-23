@@ -70,4 +70,14 @@ describe('TodoList', () => {
       assert.doesNotHaveAnyKeys(todoList._todoItems, 1);
     });
   });
+  describe('editItemObjective', () => {
+    it('should return false if the item is not present with given id', () => {
+      assert.isFalse(todoList.editItemObjective(12))
+    });
+    it('should change todoItemObjective of given id', () => {
+      todoList.addTodoItem('test');
+      assert.isTrue(todoList.editItemObjective(1,'editItem'));
+      assert.equal(todoList._todoItems[1]._objective, 'editItem');
+    });
+  });
 });

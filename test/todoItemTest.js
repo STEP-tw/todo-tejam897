@@ -33,4 +33,13 @@ describe('TodoItem', () => {
       assert.isFalse(todoItem.isDone());
     });
   });
+  describe('changeObjective', () => {
+    it('should return true when objective is changed', () => {
+      assert.isTrue(todoItem.changeObjective('editItem'))
+    });
+    it('should change the objective ', () => {
+      todoItem.changeObjective('editItem');
+      assert.equal(todoItem._objective,'editItem');
+    });
+  });
 });

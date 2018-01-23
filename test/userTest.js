@@ -115,4 +115,19 @@ describe('user', () => {
       assert.doesNotHaveAnyKeys(user._todoLists[1]._todoItems, 1);
     });
   });
+  describe('editTodoItemObjective', () => {
+    it('should return false if list is not present with givenId', () => {
+      assert.isFalse(user.editTodoItemObjective(2, 3,'listIdTesting'))
+    });
+    it('should return false if list is present but not the item', () => {
+      user.addTodoList('testing', 'itemStatus')
+      assert.isFalse(user.editTodoItemObjective(1, 3,'itemIdTesting'));
+    });
+    it('should return true and change objective if list and item are present', () => {
+      user.addTodoList('testing', 'itemStatus');;
+      user.addTodoItemTo(1, 'marking status')
+      assert.isTrue(user.editTodoItemObjective(1, 1,'itemTest'));
+      assert.equal(user._todoLists[1]._todoItems[1]._objective,'itemTest');
+    });
+  });
 });
