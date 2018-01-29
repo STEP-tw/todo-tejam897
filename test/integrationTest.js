@@ -8,7 +8,7 @@ describe('app', () => {
       "nrjais": { "username": "nrjais", "sessionId": "12345", "name": "Neeraj" }
     };
     app.saveData = ()=>{};
-    app.initializeApp(users);
+    app.initializeApp(users,{});
   });
 
   describe('GET /bad', () => {
