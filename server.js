@@ -10,7 +10,7 @@ try {
 } catch (error) {
   users = {};
 }
-app.injectData(users);
+app.initializeApp(users);
 const server = http.createServer(app);
 server.on('error',(e) => console.error('**error**',e.message));
 server.listen(PORT,() => console.log(`server listening at ${PORT}`));

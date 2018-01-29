@@ -2,19 +2,11 @@ const chai = require('chai');
 const assert = chai.assert;
 const timeStamp = require('../lib/time').timeStamp;
 const logRequest = require('../lib/logger');
-const DefaultHandler = require('../lib/models/defaultHandler');
 
 describe('timeStamp', () => {
   it('should return current date', () => {
     const expected = new Date().toDateString();
     assert.include(timeStamp(), expected);
-  });
-});
-
-describe('defaultHandler', () => {
-  it('should return undefined', () => {
-    const defaultHandler = new DefaultHandler();
-    assert.isUndefined(defaultHandler.execute());
   });
 });
 
@@ -38,6 +30,6 @@ describe('logRequest', () => {
       cookies  : 'some cookies',
       body  : 'some text'
     };
-    logRequest(req,null,fs);
+    logRequest(req,null,() => {},fs);
   });
 });

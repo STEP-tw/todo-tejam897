@@ -79,7 +79,7 @@
       {
         "args": "all",
         "vars": "all",
-        "argsIgnorePattern": "^_."
+        "argsIgnorePattern": "^(_.|req|res)"
       }
     ],
     "no-empty": [
