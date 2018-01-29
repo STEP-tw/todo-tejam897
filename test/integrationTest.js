@@ -7,6 +7,7 @@ describe('app', () => {
       "teja": { "username": "tejam", "name": "Teja" },
       "nrjais": { "username": "nrjais", "sessionId": "12345", "name": "Neeraj" }
     };
+    app.saveData = ()=>{};
     app.initializeApp(users);
   });
 

@@ -10,7 +10,13 @@ try {
 } catch (error) {
   users = {};
 }
+
+app.saveData = function (data, onFinish = () => { }) {
+  fs.writeFile('./data/todoData.json', JSON.stringify(data, null, 2), onFinish);
+}
+
 app.initializeApp(users);
+
 const server = http.createServer(app);
-server.on('error',(e) => console.error('**error**',e.message));
-server.listen(PORT,() => console.log(`server listening at ${PORT}`));
+server.on('error', (e) => console.error('**error**', e.message));
+server.listen(PORT, () => console.log(`server listening at ${PORT}`));
