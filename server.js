@@ -4,18 +4,27 @@ const app = require('./lib/app.js');
 const fs = require('fs');
 const PORT = 8080;
 let users;
+let data;
 try {
-  const data = fs.readFileSync('./data/users.json', 'utf8');
-  users = JSON.parse(data);
+  let usersJson = fs.readFileSync('./data/users.json', 'utf8');
+  users = JSON.parse(usersJson);
 } catch (error) {
+  console.log(error);
   users = {};
+}
+try {
+  const todoJson = fs.readFileSync('./data/todoData.json', 'utf8');
+  data = JSON.parse(todoJson);
+} catch (error) {
+  console.log(error);
+  data = {};
 }
 
 app.saveData = function (data, onFinish = () => { }) {
   fs.writeFile('./data/todoData.json', JSON.stringify(data, null, 2), onFinish);
 }
 
-app.initializeApp(users);
+app.initializeApp(users, data);
 
 const server = http.createServer(app);
 server.on('error', (e) => console.error('**error**', e.message));
