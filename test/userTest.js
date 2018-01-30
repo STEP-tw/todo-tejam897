@@ -8,7 +8,11 @@ describe('user', () => {
   beforeEach(() => {
     user = new User('test', 'test');
   });
-
+  describe('getter name', () => {
+    it('should return user name', () => {
+      assert.equal(user.name,'test')
+    });
+  });
   describe('addTodoList', () => {
     it('should return the newly added todoList', () => {
       const todoList = user.addTodoList('test', 'testing');

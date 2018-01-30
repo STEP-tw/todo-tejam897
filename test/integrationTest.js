@@ -122,6 +122,7 @@ describe('app', () => {
         .set('cookie', "sessionid=12345")
         .body.include('Title :')
         .body.include('Description :')
+        .body.include('Neeraj')
         .end(done);
     });
   });
@@ -143,6 +144,7 @@ describe('app', () => {
             .set('cookie', "sessionid=12345")
             .send(`title=test&description=testing`)
             .body.include('test')
+            .body.include('Neeraj')
             .body.include('Title :')
             .body.include('Description :')
             .end(done);
@@ -185,8 +187,7 @@ describe('app', () => {
       request(app)
         .get('/todolist/1')
         .set('cookie', 'sessionid=12345')
-        .body.include('Add')
-        .body.include('Objective :')
+        .body.include('No todolist with id')
         .end(done);
     });
   });
@@ -196,7 +197,7 @@ describe('app', () => {
       request(app)
         .post('/todolists')
         .set('cookie', "sessionid=12345")
-        .send(`title=test&description=testing`)
+        .send(`title=testtitle&description=testdescription`)
         .end(() => {
           request(app)
             .post('/todolist/1')
@@ -213,6 +214,9 @@ describe('app', () => {
           .get('/todolist/1')
           .set('cookie', "sessionid=12345")
           .body.include('Add')
+          .body.include('testtitle')
+          .body.include('testdescription')
+          .body.include('Neeraj')
           .body.include('Objective :')
           .body.include('testingItem')
           .end(done);
