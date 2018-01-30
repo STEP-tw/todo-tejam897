@@ -130,4 +130,23 @@ describe('user', () => {
       assert.equal(user._todoLists[1]._todoItems[1]._objective,'itemTest');
     });
   });
+  
+  describe('getTitleOfList', () => {
+    it('should return undefined when no list is present with given id', () => {
+      assert.isUndefined(user.getTitleOfList(3));
+    });
+    it('should return title of the list of given id', () => {
+      user.addTodoList('testing', 'itemStatus');
+      assert.equal(user.getTitleOfList(1), 'testing');
+    });
+  });
+  describe('getDescriptionOfList', () => {
+    it('should return undefined when no list is present with given id', () => {
+      assert.isUndefined(user.getDescriptionOfList(3));
+    });
+    it('should return description of the list of given id', () => {
+      user.addTodoList('testing', 'itemStatus');
+      assert.equal(user.getDescriptionOfList(1), 'itemStatus');
+    });
+  });
 });
