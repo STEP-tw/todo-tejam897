@@ -9,14 +9,13 @@ try {
   let usersJson = fs.readFileSync('./data/users.json', 'utf8');
   users = JSON.parse(usersJson);
 } catch (error) {
-  console.log(error);
-  users = {};
+  fs.existsSync('data') || fs.mkdirSync('data');
+  users = { 'teja': { "username": "tejam", "name": "Teja" } };
 }
 try {
   const todoJson = fs.readFileSync('./data/todoData.json', 'utf8');
   data = JSON.parse(todoJson);
 } catch (error) {
-  console.log(error);
   data = {};
 }
 
