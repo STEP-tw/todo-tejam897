@@ -4,21 +4,34 @@
 <head>
   <meta charset="UTF-8">
   <title>TodoLists</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/todolists.css">
   <script src="/js/todolists.js"></script>
 </head>
 
 <body>
-  <h2>Welcome USERNAME</h2>
-  <form action="/logout" method="post">
-    <button type="submit">logout</button>
-  </form>
-  <div id="todolists">TODOLISTS</div>
-  <form action="" method="post">
-    Title :
-    <input type="text" name="title" required> Description :
-    <input type="text" name="description" placeholder="optional">
-    <input type="submit" value="Create List">
-  </form>
+  <div class="navbar">
+    <div class="icon fa fa-check-square"></div>
+    <div class="heading">Todolists</div>
+    <div class="name">USERNAME</div>
+    <form action="/logout" method="post">
+      <input type="submit" value="Logout"></input>
+    </form>
+  </div>
+
+  <div class="main">
+    <form action="" method="post" class="newlistform">
+      <input type="text" name="title" placeholder="Title" class="titleinput" required>
+      <input type="text" name="description" placeholder="Description (optional)" class="descriptioninput">
+      <input type="submit" value="Create">
+    </form>
+
+    <div class="todolists">
+      TODOLISTS
+    </div>
+  </div>
 </body>
 
 </html>

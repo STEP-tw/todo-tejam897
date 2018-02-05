@@ -1,20 +1,123 @@
 body {
-    background: #93cede;
-    background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
-    background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-    background: -o-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-    background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-    background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
-    background-repeat: no-repeat;
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
+  background: #93cede;
+  background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
+  background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -o-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
+  background-repeat: no-repeat;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  height: 100vh;
 }
 
-.logout input{
-    border: none;
-    font-size: 18px;
-    color: #49a5bf;
-    background-color: white;
+.navbar form input {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  border: none;
+  font-size: 1em;
+  color: aliceblue;
+  height: 100%;
+  background-color: rgb(16, 117, 145);
+}
+
+.navbar form input:hover {
+  background-color: #153f4b;
+}
+
+.navbar {
+  background-color: rgb(13, 71, 87);
+  color: aliceblue;
+  display: flex;
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.navbar .icon {
+  padding: 8px;
+}
+
+.navbar .name {
+  padding: 7px 20px 0;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.navbar .heading {
+  padding: 7px 5px;
+  flex-grow: 0.2;
+}
+
+.newlistform {
+  display: flex;
+  margin: 5px 5px 0;
+  justify-content: center;
+}
+
+.newlistform input:not([type=submit]) {
+  margin: 10px;
+  padding: 3px 5px;
+  font-size: 1.1em;
+}
+
+.titleinput {
+  flex-grow: 1;
+}
+
+.descriptioninput {
+  flex-grow: 3;
+}
+
+.newlistform input[type=submit] {
+  margin: 10px;
+  padding: 3px 5px;
+  font-size: 1em;
+  border: none;
+  flex-grow: 0.2;
+  background-color: #153f4b;
+  color: aliceblue;
+}
+
+.todolists {
+  margin: 15px;
+  display: flex;
+  font-family: 'Roboto Condensed', sans-serif;
+  flex-direction: column;
+}
+
+.todolists div {
+  font-size: 1.5em;
+  display: inline-flex;
+  margin: 5px 0;
+}
+
+.todolists div a {
+  width: 25%;
+  text-decoration: none;
+}
+
+.todolists div span {
+  width: 75%;
+}
+
+.todolists div button {
+  width: 5%;
+  font-size: 0.8em;
+  border: none;
+  color: rgb(171, 206, 236);
+  margin: 0px 5px;
+  background-color: rgb(13, 71, 87);
+}
+.todolists div input{
+  margin: 0px 5px;
+  font-size: 0.9em;
+}
+
+.todolists div .title{
+  width: 25%;
+}
+.todolists div .des{
+  width: 75%;
 }

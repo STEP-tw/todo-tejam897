@@ -29,7 +29,7 @@ describe('user', () => {
     });
     it('should return array with all todoLists(title,id) when present', () => {
       user.addTodoList('test', 'testing');
-      const expected = [{ title: 'test', id: 1 }];
+      const expected = [{ title: 'test', id: 1, description:"testing" }];
       assert.deepEqual(user.getAllTodoLists(), expected);
     });
   });

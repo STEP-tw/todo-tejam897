@@ -26,7 +26,7 @@ describe('app', () => {
         request(app)
           .get('/')
           .expect(200)
-          .expect(/Login here/)
+          .expect(/Username/)
           .end(done);
       });
     });
@@ -35,7 +35,7 @@ describe('app', () => {
         request(app)
           .get('/login')
           .expect(200)
-          .expect(/Login here/)
+          .expect(/Username/)
           .end(done);
       });
 
@@ -120,8 +120,8 @@ describe('app', () => {
       request(app)
         .get('/todolists')
         .set('cookie', "sessionid=12345")
-        .body.include('Title :')
-        .body.include('Description :')
+        .body.include('Title')
+        .body.include('Description')
         .body.include('Neeraj')
         .end(done);
     });
@@ -145,8 +145,8 @@ describe('app', () => {
             .send(`title=test&description=testing`)
             .body.include('test')
             .body.include('Neeraj')
-            .body.include('Title :')
-            .body.include('Description :')
+            .body.include('Title')
+            .body.include('Description')
             .end(done);
         });
       });
