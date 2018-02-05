@@ -10,7 +10,7 @@ try {
   users = JSON.parse(usersJson);
 } catch (error) {
   fs.existsSync('data') || fs.mkdirSync('data');
-  users = { 'teja': { "username": "tejam", "name": "Teja" } };
+  users = { 'nrjais': { "username": "nrjais", "name": "Neeraj Jaiswal" } };
 }
 try {
   const todoJson = fs.readFileSync('./data/todoData.json', 'utf8');
