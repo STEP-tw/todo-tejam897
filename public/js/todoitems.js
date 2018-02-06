@@ -24,10 +24,10 @@ const deleteTodoItem = function(event){
 const editTodoItem = function (event) {
   const itemDiv = event.target.parentNode;
   const itemId = itemDiv.id;
-  const objective = itemDiv.innerText;
+  const objective = itemDiv.querySelector('label').innerText;
   const editingDiv = document.createElement('div');
   editingDiv.id = itemId;
-  editingDiv.innerHTML = `<input value=${objective} id='obj-${itemId}'>
+  editingDiv.innerHTML = `<input value='${objective}' id='obj-${itemId}'>
    <button onclick='saveEditedTodoItem(event)'>Save</button>`;
   itemDiv.replaceWith(editingDiv);
 };

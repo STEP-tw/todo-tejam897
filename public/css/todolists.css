@@ -1,5 +1,5 @@
 body {
-  background: #93cede;
+  /* background: #93cede;
   background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
   background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
@@ -7,7 +7,7 @@ body {
   background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
   background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   font-family: 'Roboto', sans-serif;
   margin: 0px;
   height: 100vh;
@@ -50,6 +50,11 @@ body {
   flex-grow: 0.2;
 }
 
+.main{
+  width: 60%;
+  margin: auto;
+}
+
 .newlistform {
   display: flex;
   margin: 5px 5px 0;
@@ -75,7 +80,7 @@ body {
   padding: 3px 5px;
   font-size: 1em;
   border: none;
-  flex-grow: 0.2;
+  flex-grow: 0.25;
   background-color: #153f4b;
   color: aliceblue;
 }
@@ -103,10 +108,10 @@ body {
 }
 
 .todolists div button {
-  width: 5%;
+  width: 8%;
   font-size: 0.8em;
   border: none;
-  color: rgb(171, 206, 236);
+  color:white;
   margin: 0px 5px;
   background-color: rgb(13, 71, 87);
 }

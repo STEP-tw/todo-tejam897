@@ -1,19 +1,19 @@
 body {
-  background: #93cede;
-  background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
-  background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-  background: -o-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-  background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-  background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
-  background-repeat: no-repeat;
+  /* background: #93cede;
+background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
+background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+background: -o-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
+background-repeat: no-repeat; */
   font-family: 'Roboto', sans-serif;
   height: 100vh;
 }
 
 h1 {
-  color: aliceblue;
+  color: rgb(55, 181, 212);
   text-align: center;
   font-size: 56px;
   font-weight: 400;

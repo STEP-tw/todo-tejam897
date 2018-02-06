@@ -3,24 +3,36 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>TodoItems</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/todoitems.css">
   <script src="/js/todoitems.js"></script>
+  <title>TodoItems</title>
 </head>
 
 <body>
-  <h2>Welcome USERNAME</h2>
-  <h2>TODOLISTTITLE</h2>
-  <h3>TODOLISTDESCRIPTION</h3>
-  <a href="/todolists">Home</a>
-  <form action="/logout" method="post">
-    <button type="submit">logout</button>
-  </form>
-  <div id="todolists">TODOITEMS</div>
-  <form action="" method="post">
-    Objective :
-    <input type="text" name="objective" required>
-    <input type="submit" value="Add">
-  </form>
+
+  <div class="navbar">
+    <a href="/todolists" class="icon fa fa-arrow-left"></a>
+    <div class="heading">TODOLISTTITLE</div>
+    <div class="name">USERNAME</div>
+    <form action="/logout" method="post">
+      <input type="submit" value="Logout"></input>
+    </form>
+  </div>
+
+  <div class="main">
+    <form action="" method="post">
+      <input type="text" name="objective" placeholder="Objective" required>
+      <input type="submit" value="Add">
+    </form>
+
+    <div class="todoitems">
+       TODOITEMS
+    </div>
+  </div>
+
 </body>
 
 </html>

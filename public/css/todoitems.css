@@ -1,0 +1,156 @@
+body {
+    /* background: #93cede;
+  background: -moz-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #93cede), color-stop(41%, #92c0d1), color-stop(100%, #49a5bf));
+  background: -webkit-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -o-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  background: radial-gradient(ellipse at center, #93cede 0%, #92c0d1 41%, #49a5bf 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1);
+  background-repeat: no-repeat; */
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+    height: 100vh;
+}
+
+.navbar form input {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    border: none;
+    font-size: 1em;
+    color: aliceblue;
+    height: 100%;
+    background-color: rgb(16, 117, 145);
+}
+
+.navbar form input:hover {
+    background-color: #153f4b;
+}
+
+.navbar {
+    background-color: rgb(13, 71, 87);
+    color: aliceblue;
+    display: flex;
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.navbar .icon {
+    padding: 8px;
+}
+
+.navbar .name {
+    padding: 7px 20px 0;
+    flex-grow: 1;
+    text-align: right;
+}
+
+.navbar .heading {
+    padding: 7px 5px;
+    flex-grow: 0.2;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.main form {
+    display: flex;
+    margin: 5px 0px;
+    justify-content: center;
+}
+
+.main {
+    width: 60%;
+    margin: auto;
+}
+
+.main form input:not([type=submit]) {
+    margin: 10px;
+    padding: 3px 5px;
+    font-size: 1.2em;
+    flex-grow: 1;
+}
+
+.main form input[type=submit] {
+    margin: 10px 5px;
+    padding: 3px 5px;
+    font-size: 1em;
+    border: none;
+    flex-grow: 0.24;
+    background-color: #153f4b;
+    color: aliceblue;
+}
+
+.todoitems {
+    display: flex;
+    font-family: 'Roboto Condensed', sans-serif;
+    flex-direction: column;
+}
+
+.todoitems div {
+    font-size: 1.5em;
+    display: inline-flex;
+    margin: 5px 0;
+}
+
+.todoitems div label {
+    margin: 0 10px;
+    flex-grow: 1;
+    display: inline;
+}
+
+.todoitems div input:not([type=checkbox]) {
+    font-size: 1em;
+    margin: 0 10px;
+    flex-grow: 1;
+}
+
+.todoitems div button {
+    width: 8%;
+    font-size: 0.8em;
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    background-color: rgb(13, 71, 87);
+}
+
+.todoitems div input[type=checkbox] {
+    display: none;
+}
+
+.todoitems div input[type=checkbox] label {
+    display: inline;
+}
+
+.todoitems div input[type=checkbox]+label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+
+.todoitems div input[type=checkbox]+label:active,
+.todoitems div input[type=checkbox]:checked+label:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.todoitems div input[type=checkbox]:checked+label {
+    background-color: #e9ecee;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    color: #99a1a7;
+}
+
+.todoitems div input[type=checkbox]:checked+label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    color: #99a1a7;
+}
